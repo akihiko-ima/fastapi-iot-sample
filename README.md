@@ -15,7 +15,7 @@ docker_data/のアクセス権に注意<br>
 1. Clone the repository
 
   ```bash
-   git clone
+   git clone https://github.com/akihiko-ima/fastapi-iot-sample.git
   ```
 
 2. Install dependencies
