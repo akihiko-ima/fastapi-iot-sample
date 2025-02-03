@@ -1,0 +1,8 @@
+# dir
+docker_data
+env_fastapi
+__pycache__
+src/migrations
+
+# file
+src/alembic.ini
