@@ -5,7 +5,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
-from routers import auth, comment
+from routers import auth, comment, sensor
 
 app = FastAPI()
 
@@ -31,3 +31,4 @@ async def add_process_time_header(request: Request, call_next):
 
 app.include_router(auth.router)
 app.include_router(comment.router)
+app.include_router(sensor.router)

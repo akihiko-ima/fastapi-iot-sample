@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, Float, func
 from datetime import datetime
 from sqlalchemy.orm import relationship
 
@@ -30,3 +30,12 @@ class Comment(Base):
     )
 
     user = relationship("User", back_populates="comments")
+
+
+class SensorData(Base):
+    __tablename__ = "sensor_data"
+
+    id = Column(Integer, primary_key=True, index=True)
+    machineID = Column(Integer, index=True)
+    temperature = Column(Float)
+    created_at = Column(DateTime, default=func.now())
