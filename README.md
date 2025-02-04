@@ -29,7 +29,7 @@ docker_data/のアクセス権に注意<br>
 3. Run the development server
 
   ```bash
-   uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+   uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
   ```
 
 - requirements.txt<br>
