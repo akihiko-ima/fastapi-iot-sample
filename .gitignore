@@ -2,7 +2,7 @@
 docker_data
 env_fastapi
 __pycache__
-src/migrations
+backend/migrations
 
 # file
-src/alembic.ini
+backend/alembic.ini
