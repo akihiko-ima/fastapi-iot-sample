@@ -1,20 +1,4 @@
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: postgres
-    ports:
-      - 5432:5432
-    volumes:
-      - ./docker_data/postgres/init.d:/docker-entrypoint-initdb.d
-      - ./docker_data/postgres/pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: sampleuser
-      POSTGRES_PASSWORD: samplepass
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-      POSTGRES_DB: hogehogedb
-    hostname: postgres
-    user: root
-
   pgadmin:
     image: dpage/pgadmin4
     ports:
@@ -26,3 +10,60 @@ services:
       - ./docker_data/pgadmin:/var/lib/pgadmin
     depends_on:
       - postgres
+    networks:
+      - iot-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./docker_data/postgres/init.d:/docker-entrypoint-initdb.d
+      - ./docker_data/postgres/pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: hogehogedb
+      POSTGRES_USER: sampleuser
+      POSTGRES_PASSWORD: samplepass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: postgres
+    networks:
+      - iot-net
+
+  postgres-metabase:
+    image: postgres:16-alpine
+    container_name: postgres-metabase
+    env_file: ./config/postgres-metabase/.env
+    ports:
+      - 5433:5433
+    command: -p 5433
+    tty: true
+    volumes:
+      - ./docker_data/postgres-metabase/init.d:/docker-entrypoint-initdb.d
+      - ./docker_data/postgres-metabase/pgdata:/var/lib/postgresql/data
+    hostname: postgres-metabase
+    networks:
+      - iot-net
+
+  metabase:
+    image: metabase/metabase:v0.52.9
+    container_name: metabase
+    env_file: ./config/metabase/.env
+    ports:
+      - 3000:3000
+    volumes:
+      - ./docker_data/metabase-data:/metabase-data
+    tty: true
+    healthcheck:
+      test: curl --fail -I http://localhost:3000/api/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - postgres-metabase
+    networks:
+      - iot-net
+
+networks:
+  iot-net:
+    driver: bridge

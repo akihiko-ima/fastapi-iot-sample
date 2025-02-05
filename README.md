@@ -1,3 +1,9 @@
+## <div align="center">Documentation</div>
+
+簡単にIoTのシステムを構築するサンプルソースコードを保管しています。<br>
+⚠️ **注意:** ご自身の環境で構築する場合は、`user名` や `password` などの変数を変更してお使いください。
+
+
 ## 開発環境
 FrontEnd: -<br>
 BackEnd: FastAPI<br>

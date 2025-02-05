@@ -6,7 +6,7 @@ API_ENDPOINT = "http://127.0.0.1:8000/sensor/add_data"
 
 machineID = 1
 # (None にすると無限ループ）
-repetition_number = 10
+repetition_number = 10000
 interval_sec = 1
 
 # 送信ループ
